@@ -1,4 +1,4 @@
-﻿namespace Tetris.App
+﻿namespace Tetris.Logic
 {
     public enum TetrominoType
     {

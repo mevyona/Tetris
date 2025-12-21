@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿    
 using System;
+using System.Drawing;
 
-namespace Tetris.App
+namespace Tetris.Logic
 {
-    public class GameBoard
+    public class Grid
     {
         public const int Width = 10;
         public const int Height = 20;
@@ -11,7 +12,7 @@ namespace Tetris.App
         private int[,] _board;
         private Color[,] _boardColors;
 
-        public GameBoard()
+        public Grid()
         {
             _board = new int[Height, Width];
             _boardColors = new Color[Height, Width];
@@ -44,7 +45,7 @@ namespace Tetris.App
             return _boardColors[y, x];
         }
 
-        public bool CanPlacePiece(Tetromino piece)
+        public bool CanPlacePiece(Piece piece)
         {
             int rows = piece.Shape.GetLength(0);
             int cols = piece.Shape.GetLength(1);
@@ -70,7 +71,7 @@ namespace Tetris.App
             return true;
         }
 
-        public void PlacePiece(Tetromino piece)
+        public void PlacePiece(Piece piece)
         {
             int rows = piece.Shape.GetLength(0);
             int cols = piece.Shape.GetLength(1);
@@ -142,7 +143,7 @@ namespace Tetris.App
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    Color color = _board[i, j] == 1 ? _boardColors[i, j] : Color.DarkGray * 0.3f;
+                    Color color = _board[i, j] == 1 ? _boardColors[i, j] : Color.DarkGray;
                     drawBlock(offsetX + j * blockSize, offsetY + i * blockSize, blockSize - 2, color);
                 }
             }

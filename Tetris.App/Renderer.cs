@@ -1,5 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using DrawingColor = System.Drawing.Color;
+
+using Tetris.Logic;
+
 
 namespace Tetris.App
 {
@@ -29,8 +33,8 @@ namespace Tetris.App
                 DrawTetromino(gameState.CurrentPiece, offsetX, offsetY);
             }
 
-            DrawNextPiece(gameState.NextPiece, offsetX + GameBoard.Width * BlockSize + 40, offsetY);
-            DrawGameInfo(gameState, offsetX + GameBoard.Width * BlockSize + 40, offsetY + 150);
+            DrawNextPiece(gameState.NextPiece, offsetX + Grid.Width * BlockSize + 40, offsetY);
+            DrawGameInfo(gameState, offsetX + Grid.Width * BlockSize + 40, offsetY + 150);
 
             if (gameState.IsGameOver)
             {
@@ -38,13 +42,14 @@ namespace Tetris.App
             }
         }
 
-        private void DrawBlock(int x, int y, int size, Color color)
+        private void DrawBlock(int x, int y, int size, DrawingColor color)
         {
             Rectangle rect = new Rectangle(x, y, size, size);
-            _spriteBatch.Draw(_blockTexture, rect, color);
+            var mgColor = new Color(color.R, color.G, color.B, color.A);
+            _spriteBatch.Draw(_blockTexture, rect, mgColor);
         }
 
-        private void DrawTetromino(Tetromino piece, int offsetX, int offsetY)
+        private void DrawTetromino(Piece piece, int offsetX, int offsetY)
         {
             int rows = piece.Shape.GetLength(0);
             int cols = piece.Shape.GetLength(1);
@@ -63,7 +68,7 @@ namespace Tetris.App
             }
         }
 
-        private void DrawNextPiece(Tetromino piece, int x, int y)
+        private void DrawNextPiece(Piece piece, int x, int y)
         {
             DrawText("SUIVANT :", x, y - 30, Color.White);
 
@@ -100,15 +105,15 @@ namespace Tetris.App
         {
             Rectangle overlay = new Rectangle(
                 offsetX,
-                offsetY + GameBoard.Height / 2 * BlockSize - 60,
-                GameBoard.Width * BlockSize,
+                offsetY + Grid.Height / 2 * BlockSize - 60,
+                Grid.Width * BlockSize,
                 120
             );
             _spriteBatch.Draw(_blockTexture, overlay, Color.Black * 0.8f);
 
-            DrawText("JEU TERMINE", offsetX + 50, offsetY + GameBoard.Height / 2 * BlockSize - 40, Color.Red);
-            DrawText($"Score : {gameState.Score}", offsetX + 60, offsetY + GameBoard.Height / 2 * BlockSize - 10, Color.White);
-            DrawText("Appuyer sur R pour relancer", offsetX + 70, offsetY + GameBoard.Height / 2 * BlockSize + 20, Color.Yellow);
+            DrawText("JEU TERMINE", offsetX + 50, offsetY + Grid.Height / 2 * BlockSize - 40, Color.Red);
+            DrawText($"Score : {gameState.Score}", offsetX + 60, offsetY + Grid.Height / 2 * BlockSize - 10, Color.White);
+            DrawText("Appuyer sur R pour relancer", offsetX + 70, offsetY + Grid.Height / 2 * BlockSize + 20, Color.Yellow);
         }
 
         private void DrawText(string text, int x, int y, Color color)

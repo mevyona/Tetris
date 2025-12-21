@@ -1,14 +1,14 @@
 ﻿using System;
-
+using Tetris.Logic;
 namespace Tetris.App
 {
     public class GameState
     {
         private Random _random;
 
-        public GameBoard Board { get; private set; }
-        public Tetromino CurrentPiece { get; set; }
-        public Tetromino NextPiece { get; set; }
+        public Grid Board { get; private set; }
+        public Piece CurrentPiece { get; set; }
+        public Piece NextPiece { get; set; }
         public int Score { get; set; }
         public int LinesCleared { get; set; }
         public bool IsGameOver { get; set; }
@@ -20,7 +20,7 @@ namespace Tetris.App
         public GameState()
         {
             _random = new Random();
-            Board = new GameBoard();
+            Board = new Grid();
             Reset();
         }
 
@@ -35,10 +35,10 @@ namespace Tetris.App
             NextPiece = CreateRandomPiece();
         }
 
-        public Tetromino CreateRandomPiece()
+        public Piece CreateRandomPiece()
         {
             var types = Enum.GetValues<TetrominoType>();
-            return new Tetromino(types[_random.Next(types.Length)]);
+            return new Piece(types[_random.Next(types.Length)]);
         }
 
         public void ProcessClearedLines(int linesCleared)

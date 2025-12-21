@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using System.Drawing;
+   
 
-namespace Tetris.App
+namespace Tetris.Logic
 {
-    public class Tetromino
+    public class Piece
     {
         public TetrominoType Type { get; set; }
         public int[,] Shape { get; set; }
@@ -10,7 +12,7 @@ namespace Tetris.App
         public int X { get; set; }
         public int Y { get; set; }
 
-        public Tetromino(TetrominoType type)
+        public Piece(TetrominoType type)
         {
             Type = type;
             X = 3;
@@ -66,9 +68,9 @@ namespace Tetris.App
             Shape = rotated;
         }
 
-        public Tetromino Clone()
+        public Piece Clone()
         {
-            var clone = new Tetromino(Type)
+            var clone = new Piece(Type)
             {
                 X = this.X,
                 Y = this.Y,
