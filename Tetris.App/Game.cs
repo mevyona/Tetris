@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Tetris.Logic;
 
 namespace Tetris.App
 {
@@ -63,7 +64,7 @@ namespace Tetris.App
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
-            _inputHandler.Update(deltaTime, _gameState);
+            _inputHandler.HandleInput(deltaTime, _gameState);
 
             if (_gameState.IsGameOver)
             {
@@ -79,20 +80,15 @@ namespace Tetris.App
             {
                 _fallTimer = 0;
 
-                var testPiece = _gameState.CurrentPiece.Clone();
-                testPiece.Y++;
+                bool piecePlaced = _gameState.Board.Update(_gameState.CurrentPiece);
 
-                if (_gameState.Board.CanPlacePiece(testPiece))
+                if (piecePlaced)
                 {
-                    _gameState.CurrentPiece.Y++;
-                }
-                else
-                {
-                    _gameState.Board.PlacePiece(_gameState.CurrentPiece);
                     int linesCleared = _gameState.Board.ClearFullLines();
                     _gameState.ProcessClearedLines(linesCleared);
                     _gameState.SpawnNextPiece();
                 }
+
             }
 
             base.Update(gameTime);

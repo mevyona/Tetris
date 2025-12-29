@@ -8,7 +8,7 @@ namespace Tetris.App
         private float _moveTimer;
         private const float MoveDelay = 0.1f;
 
-        public void Update(float deltaTime, GameState gameState)
+        public void HandleInput(float deltaTime, GameState gameState)
         {
             KeyboardState currentKeyState = Keyboard.GetState();
 

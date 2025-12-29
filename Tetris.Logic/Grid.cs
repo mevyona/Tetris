@@ -148,5 +148,25 @@ namespace Tetris.Logic
                 }
             }
         }
+
+        public bool Update(Piece currentPiece)
+        {
+            var testPiece = currentPiece.Clone();
+            testPiece.Y++;
+
+            if (CanPlacePiece(testPiece))
+            {
+                currentPiece.Y++;
+                return false; 
+            }
+            else
+            {
+                PlacePiece(currentPiece);
+                ClearFullLines();
+                return true; 
+            }
+        }
+
+
     }
 }
