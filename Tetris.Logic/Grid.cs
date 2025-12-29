@@ -149,7 +149,7 @@ namespace Tetris.Logic
             }
         }
 
-        public bool Update(Piece currentPiece)
+        public void Update(Piece currentPiece)
         {
             var testPiece = currentPiece.Clone();
             testPiece.Y++;
@@ -157,16 +157,11 @@ namespace Tetris.Logic
             if (CanPlacePiece(testPiece))
             {
                 currentPiece.Y++;
-                return false; 
             }
             else
             {
                 PlacePiece(currentPiece);
-                ClearFullLines();
-                return true; 
             }
         }
-
-
     }
 }

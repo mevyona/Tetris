@@ -78,17 +78,15 @@ namespace Tetris.App
             if (_fallTimer >= fallSpeed)
             {
                 _fallTimer = 0;
-
-                bool piecePlaced = _gameState.Board.Update(_gameState.CurrentPiece);
-
-                if (piecePlaced)
+                _gameState.Board.Update(_gameState.CurrentPiece);
+                if (!_gameState.Board.CanPlacePiece(_gameState.CurrentPiece))
                 {
                     int linesCleared = _gameState.Board.ClearFullLines();
                     _gameState.ProcessClearedLines(linesCleared);
                     _gameState.SpawnNextPiece();
                 }
-
             }
+
 
             base.Update(gameTime);
         }
